@@ -34,7 +34,6 @@ light.addComponent('light');
 
 // Add to hierarchy
 app.root.addChild(cube);
-
 app.root.addChild(light);
 
 // Set up initial positions and orientations
@@ -68,8 +67,8 @@ cube.script.create('rotate');
 var data = {
     name: 'helipad',
     cubemap: 'cubemaps/helipad/Helipad.dds',
-	textures: [	
-		"cubemaps/helipad/Helipad_posx.png",		
+	textures: [
+		"cubemaps/helipad/Helipad_posx.png",
 		"cubemaps/helipad/Helipad_negx.png",
 		"cubemaps/helipad/Helipad_posy.png",
 		"cubemaps/helipad/Helipad_negy.png",
@@ -81,7 +80,7 @@ var data = {
 var textures = data.textures.map(function(v, i) {
     var asset = new pc.Asset(data.name + '-' + i, 'texture', { url: v });
     app.assets.add(asset);
-    return asset.id; 
+    return asset.id;
 });
 
 var cubemap = new pc.Asset(
@@ -90,10 +89,10 @@ var cubemap = new pc.Asset(
     { url: data.cubemap },
     {
         anisotropy: 1,
-        magFilter: 1, 
-        minFilter: 5, 
+        magFilter: 1,
+        minFilter: 5,
         rgbm: true,
-		prefiltered: 'cubemaps/helipad/Helipad.dds',
+		    prefiltered: 'cubemaps/helipad/Helipad.dds',
         textures: textures
     }
 );
@@ -104,6 +103,3 @@ app.scene.skyboxIntensity = 1
 app.scene.skyboxMip = 3;
 app.scene.toneMapping = pc.TONEMAP_ACES;
 app.scene.gammaCorrection = 1;
-
-console.log(cubemap);
-console.log(app.scene);
