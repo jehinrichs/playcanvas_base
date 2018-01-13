@@ -2,19 +2,8 @@ var createOrbitCameraMouseInput = function(pc){
 
   var OrbitCameraMouseInput = pc.createScript('orbitCameraMouseInput');
 
-  OrbitCameraMouseInput.attributes.add('orbitSensitivity', {
-      type: 'number',
-      default: 0.3,
-      title: 'Orbit Sensitivity',
-      description: 'How fast the camera moves around the orbit. Higher is faster'
-  });
-
-  OrbitCameraMouseInput.attributes.add('distanceSensitivity', {
-      type: 'number',
-      default: 0.15,
-      title: 'Distance Sensitivity',
-      description: 'How fast the camera moves in and out. Higher is faster'
-  });
+  OrbitCameraMouseInput.prototype.orbitSensitivity = 0.3; //How fast the camera moves around the orbit. Higher is faster
+  OrbitCameraMouseInput.prototype.distanceSensitivity = 0.15; //How fast the camera moves in and out. Higher is faster
 
   // initialize code called once per entity
   OrbitCameraMouseInput.prototype.initialize = function() {
@@ -52,11 +41,9 @@ var createOrbitCameraMouseInput = function(pc){
       window.removeEventListener('mouseout', this.onMouseOut, false);
   };
 
-
   OrbitCameraMouseInput.fromWorldPoint = new pc.Vec3();
   OrbitCameraMouseInput.toWorldPoint = new pc.Vec3();
   OrbitCameraMouseInput.worldDiff = new pc.Vec3();
-
 
   OrbitCameraMouseInput.prototype.pan = function(screenPoint) {
       var fromWorldPoint = OrbitCameraMouseInput.fromWorldPoint;

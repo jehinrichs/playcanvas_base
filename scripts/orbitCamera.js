@@ -2,10 +2,10 @@ var createOrbitCamera = function(pc){
 
   var OrbitCamera = pc.createScript('orbitCamera');
 
-  OrbitCamera.attributes.add('distanceMax', {type: 'number', default: 0, title: 'Distance Max', description: 'Setting this at 0 will give an infinite distance limit'});
-  OrbitCamera.attributes.add('distanceMin', {type: 'number', default: 0, title: 'Distance Min'});
-  OrbitCamera.attributes.add('pitchAngleMax', {type: 'number', default: 90, title: 'Pitch Angle Max (degrees)'});
-  OrbitCamera.attributes.add('pitchAngleMin', {type: 'number', default: -90, title: 'Pitch Angle Min (degrees)'});
+  OrbitCamera.prototype.distanceMax = 0; //Setting this at 0 will give an infinite distance limit
+  OrbitCamera.prototype.distanceMin = 0;
+  OrbitCamera.prototype.pitchAngleMax = 90;
+  OrbitCamera.prototype.pitchAngleMin = -90;
 
   OrbitCamera.attributes.add('inertiaFactor', {
       type: 'number',
@@ -208,36 +208,36 @@ var createOrbitCamera = function(pc){
       this._targetDistance = this._distance;
 
       // Reapply the clamps if they are changed in the editor
-      this.on('attr:distanceMin', function (value, prev) {
-          this._targetDistance = this._clampDistance(this._distance);
-      });
-
-      this.on('attr:distanceMax', function (value, prev) {
-          this._targetDistance = this._clampDistance(this._distance);
-      });
-
-      this.on('attr:pitchAngleMin', function (value, prev) {
-          this._targetPitch = this._clampPitchAngle(this._pitch);
-      });
-
-      this.on('attr:pitchAngleMax', function (value, prev) {
-          this._targetPitch = this._clampPitchAngle(this._pitch);
-      });
-
-      // Focus on the entity if we change the focus entity
-      this.on('attr:focusEntity', function (value, prev) {
-          if (this.frameOnStart) {
-              this.focus(value || this.app.root);
-          } else {
-              this.resetAndLookAtEntity(this.entity.getPosition(), value || this.app.root);
-          }
-      });
-
-      this.on('attr:frameOnStart', function (value, prev) {
-          if (value) {
-              this.focus(this.focusEntity || this.app.root);
-          }
-      });
+      // this.on('attr:distanceMin', function (value, prev) {
+      //     this._targetDistance = this._clampDistance(this._distance);
+      // });
+      //
+      // this.on('attr:distanceMax', function (value, prev) {
+      //     this._targetDistance = this._clampDistance(this._distance);
+      // });
+      //
+      // this.on('attr:pitchAngleMin', function (value, prev) {
+      //     this._targetPitch = this._clampPitchAngle(this._pitch);
+      // });
+      //
+      // this.on('attr:pitchAngleMax', function (value, prev) {
+      //     this._targetPitch = this._clampPitchAngle(this._pitch);
+      // });
+      //
+      // // Focus on the entity if we change the focus entity
+      // this.on('attr:focusEntity', function (value, prev) {
+      //     if (this.frameOnStart) {
+      //         this.focus(value || this.app.root);
+      //     } else {
+      //         this.resetAndLookAtEntity(this.entity.getPosition(), value || this.app.root);
+      //     }
+      // });
+      //
+      // this.on('attr:frameOnStart', function (value, prev) {
+      //     if (value) {
+      //         this.focus(this.focusEntity || this.app.root);
+      //     }
+      // });
 
       this.on('destroy', function() {
           window.removeEventListener('resize', onWindowResize, false);
