@@ -1,5 +1,5 @@
 var pcbase = (function () {
-  
+
   // Create a PlayCanvas application
   var canvas = document.getElementById("application-canvas");
   var app = new pc.Application(canvas, {
@@ -40,8 +40,8 @@ var pcbase = (function () {
       clearColor: new pc.Color(0.1, 0.2, 0.3)
   });
   camera.addComponent('script');
-  camera.script.create(createOrbitCamera(pc));
-  camera.script.create(createOrbitCameraMouseInput(pc));
+  camera.script.create(createOrbitCamera());
+  camera.script.create(createOrbitCameraMouseInput());
   camera.translate(0, 0, 10);
   camera.setPosition(0, 0, 3);
 

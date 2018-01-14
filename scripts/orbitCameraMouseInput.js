@@ -1,4 +1,4 @@
-var createOrbitCameraMouseInput = function(pc){
+var createOrbitCameraMouseInput = function(){
 
   var OrbitCameraMouseInput = pc.createScript('orbitCameraMouseInput');
 

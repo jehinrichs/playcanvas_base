@@ -1,4 +1,4 @@
-var createOrbitCamera = function(pc){
+var createOrbitCamera = function(){
 
   var OrbitCamera = pc.createScript('orbitCamera');
 
@@ -6,27 +6,9 @@ var createOrbitCamera = function(pc){
   OrbitCamera.prototype.distanceMin = 0;
   OrbitCamera.prototype.pitchAngleMax = 90;
   OrbitCamera.prototype.pitchAngleMin = -90;
-
-  OrbitCamera.attributes.add('inertiaFactor', {
-      type: 'number',
-      default: 0,
-      title: 'Inertia Factor',
-      description: 'Higher value means that the camera will continue moving after the user has stopped dragging. 0 is fully responsive.'
-  });
-
-  OrbitCamera.attributes.add('focusEntity', {
-      type: 'entity',
-      title: 'Focus Entity',
-      description: 'Entity for the camera to focus on. If blank, then the camera will use the whole scene'
-  });
-
-  OrbitCamera.attributes.add('frameOnStart', {
-      type: 'boolean',
-      default: true,
-      title: 'Frame on Start',
-      description: 'Frames the entity or scene at the start of the application."'
-  });
-
+  OrbitCamera.prototype.inertiaFactor = 0; //Higher value means that the camera will continue moving after the user has stopped dragging. 0 is fully responsive
+  OrbitCamera.prototype.focusEntity = null; //Entity for the camera to focus on. If blank, then the camera will use the whole scene
+  OrbitCamera.prototype.frameOnStart = true; //Frames the entity or scene at the start of the application
 
   // Property to get and set the distance between the pivot point and camera
   // Clamped between this.distanceMin and this.distanceMax
