@@ -1,32 +1,14 @@
-var createOrbitCamera = function(pc){
+var createOrbitCamera = function(){
 
   var OrbitCamera = pc.createScript('orbitCamera');
 
-  OrbitCamera.attributes.add('distanceMax', {type: 'number', default: 0, title: 'Distance Max', description: 'Setting this at 0 will give an infinite distance limit'});
-  OrbitCamera.attributes.add('distanceMin', {type: 'number', default: 0, title: 'Distance Min'});
-  OrbitCamera.attributes.add('pitchAngleMax', {type: 'number', default: 90, title: 'Pitch Angle Max (degrees)'});
-  OrbitCamera.attributes.add('pitchAngleMin', {type: 'number', default: -90, title: 'Pitch Angle Min (degrees)'});
-
-  OrbitCamera.attributes.add('inertiaFactor', {
-      type: 'number',
-      default: 0,
-      title: 'Inertia Factor',
-      description: 'Higher value means that the camera will continue moving after the user has stopped dragging. 0 is fully responsive.'
-  });
-
-  OrbitCamera.attributes.add('focusEntity', {
-      type: 'entity',
-      title: 'Focus Entity',
-      description: 'Entity for the camera to focus on. If blank, then the camera will use the whole scene'
-  });
-
-  OrbitCamera.attributes.add('frameOnStart', {
-      type: 'boolean',
-      default: true,
-      title: 'Frame on Start',
-      description: 'Frames the entity or scene at the start of the application."'
-  });
-
+  OrbitCamera.prototype.distanceMax = 0; //Setting this at 0 will give an infinite distance limit
+  OrbitCamera.prototype.distanceMin = 0;
+  OrbitCamera.prototype.pitchAngleMax = 90;
+  OrbitCamera.prototype.pitchAngleMin = -90;
+  OrbitCamera.prototype.inertiaFactor = 0; //Higher value means that the camera will continue moving after the user has stopped dragging. 0 is fully responsive
+  OrbitCamera.prototype.focusEntity = null; //Entity for the camera to focus on. If blank, then the camera will use the whole scene
+  OrbitCamera.prototype.frameOnStart = true; //Frames the entity or scene at the start of the application
 
   // Property to get and set the distance between the pivot point and camera
   // Clamped between this.distanceMin and this.distanceMax
@@ -208,36 +190,36 @@ var createOrbitCamera = function(pc){
       this._targetDistance = this._distance;
 
       // Reapply the clamps if they are changed in the editor
-      this.on('attr:distanceMin', function (value, prev) {
-          this._targetDistance = this._clampDistance(this._distance);
-      });
-
-      this.on('attr:distanceMax', function (value, prev) {
-          this._targetDistance = this._clampDistance(this._distance);
-      });
-
-      this.on('attr:pitchAngleMin', function (value, prev) {
-          this._targetPitch = this._clampPitchAngle(this._pitch);
-      });
-
-      this.on('attr:pitchAngleMax', function (value, prev) {
-          this._targetPitch = this._clampPitchAngle(this._pitch);
-      });
-
-      // Focus on the entity if we change the focus entity
-      this.on('attr:focusEntity', function (value, prev) {
-          if (this.frameOnStart) {
-              this.focus(value || this.app.root);
-          } else {
-              this.resetAndLookAtEntity(this.entity.getPosition(), value || this.app.root);
-          }
-      });
-
-      this.on('attr:frameOnStart', function (value, prev) {
-          if (value) {
-              this.focus(this.focusEntity || this.app.root);
-          }
-      });
+      // this.on('attr:distanceMin', function (value, prev) {
+      //     this._targetDistance = this._clampDistance(this._distance);
+      // });
+      //
+      // this.on('attr:distanceMax', function (value, prev) {
+      //     this._targetDistance = this._clampDistance(this._distance);
+      // });
+      //
+      // this.on('attr:pitchAngleMin', function (value, prev) {
+      //     this._targetPitch = this._clampPitchAngle(this._pitch);
+      // });
+      //
+      // this.on('attr:pitchAngleMax', function (value, prev) {
+      //     this._targetPitch = this._clampPitchAngle(this._pitch);
+      // });
+      //
+      // // Focus on the entity if we change the focus entity
+      // this.on('attr:focusEntity', function (value, prev) {
+      //     if (this.frameOnStart) {
+      //         this.focus(value || this.app.root);
+      //     } else {
+      //         this.resetAndLookAtEntity(this.entity.getPosition(), value || this.app.root);
+      //     }
+      // });
+      //
+      // this.on('attr:frameOnStart', function (value, prev) {
+      //     if (value) {
+      //         this.focus(this.focusEntity || this.app.root);
+      //     }
+      // });
 
       this.on('destroy', function() {
           window.removeEventListener('resize', onWindowResize, false);
